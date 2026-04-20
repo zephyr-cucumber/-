@@ -1,105 +1,79 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="огурцы" content="СЛАВА ОГУРЦАМ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Армия Огурцов | Вербовка</title>
+    <title>Армия Огурцов | регистрация</title>
 </head>
 <body>
-
-    <h2>🥒 ВСТУПАЙ В АРМИЮ ОГУРЦОВ 🥒</h2>
-    <p>Заполни форму, и мы свяжемся с тобой для борьбы с помидорами.</p>
-
-    <form id="cucumberForm">
-        <label>Твой боевой псевдоним:</label><br>
-        <input type="text" id="nickname" name="nickname" placeholder="Zephyr" required><br><br>
-
-        <label>Пароль для связи со штабом:</label><br>
-        <input type="password" id="password" name="password" placeholder="Твой секретный код" required><br><br>
-
-        <label>Твоя роль:</label><br>
-        <input type="radio" name="role" value="Шпион"> 🕵️ Шпион (будешь следить за помидорами)<br>
-        <input type="radio" name="role" value="Воин"> ⚔️ Воин (пойдешь в атаку)<br>
-        <input type="radio" name="role" value="Инженер"> 🛠️ Инженер (будешь строить ловушки)<br><br>
-
-        <label>Кого ты ненавидишь?</label><br>
-        <input type="checkbox" name="enemy" value="Помидоры"> 🍅 Помидоры<br>
-        <input type="checkbox" name="enemy" value="Красные перцы"> 🌶️ Красные перцы<br><br>
-
-        <label>Почему ты хочешь вступить в армию?</label><br>
-        <textarea id="reason" rows="4" cols="40" placeholder="Напиши причину..."></textarea><br><br>
-
-        <button type="submit">🚀 Отправить донесение в штаб 🚀</button>
+    <h2>🥒РЕГИСТРАЦИЯ К АРМИИ ОГУРЦОВ🥒</h2>
+    
+    <form id="regForm">
+        <label for="ник">введи свой псевдоним</label><br>
+        <input type="text" placeholder="zephyr" maxlength="20" name="ник" id="ник" required><br><br>
+        
+        <label>твой пароль для связи со штабом</label><br>
+        <input type="password" placeholder="твой личный пароль" required><br>
+        
+        <input type="radio" name="огурец" value="шпион"> шпион🕵️ (повышеная опасность из-за технологий)<br>
+        <input type="radio" name="огурец" value="воин"> воин⚔️ (повышенная опасность)<br>
+        <input type="radio" name="огурец" value="инженер"> инженер🛠️ (пониженая опасность)<br><br>
+        
+        <label>кого ненавидишь больше?</label><br>
+        <input type="radio" name="огурец2" value="помидоры"> помидоры🍅<br>
+        <input type="radio" name="огурец2" value="красный перец"> красный перец🌶️<br><br>
+        
+        <button type="submit">отправить заявку📝</button>
     </form>
 
     <script>
-        // ⚠️ ВСТАВЬ СЮДА СВОИ ДАННЫЕ ОТ ТЕЛЕГРАМА ⚠️
-        const BOT_TOKEN = '8757309660:AAFiAcvm-JYceYvo8UNVqXGZOK75wBez-E0';  // Токен от @BotFather
-        const CHAT_ID = '7545906461';      // Твой Chat ID от @userinfobot
-
-        // Функция отправки данных в Telegram
-        async function sendToTelegram(messageText) {
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            const payload = {
-                chat_id: CHAT_ID,
-                text: messageText,
-                parse_mode: 'HTML'
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-                if (result.ok) {
-                    alert('✅ Донесение принято! Армия огурцов усилилась!');
-                } else {
-                    alert('❌ Ошибка! Помидоры перехватили связь. Попробуй еще раз.');
+        const form = document.getElementById('regForm');
+        
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const nickname = document.getElementById('ник').value;
+            const password = document.querySelector('input[type="password"]').value;
+            
+            let role = '';
+            const radiosRole = document.querySelectorAll('input[name="огурец"]');
+            for (let i = 0; i < radiosRole.length; i++) {
+                if (radiosRole[i].checked) {
+                    role = radiosRole[i].value;
+                    break;
                 }
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('❌ Не удалось отправить донесение. Проверь интернет.');
             }
-        }
-
-        // Обработчик отправки формы
-        document.getElementById('cucumberForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Останавливаем перезагрузку страницы
-
-            // Собираем данные из формы
-            const nickname = document.getElementById('nickname').value;
-            const password = document.getElementById('password').value;
-            const role = document.querySelector('input[name="role"]:checked');
-            const enemies = document.querySelectorAll('input[name="enemy"]:checked');
-            const reason = document.getElementById('reason').value;
-
-            // Проверяем обязательные поля
+            
+            let hate = '';
+            const radiosHate = document.querySelectorAll('input[name="огурец2"]');
+            for (let i = 0; i < radiosHate.length; i++) {
+                if (radiosHate[i].checked) {
+                    hate = radiosHate[i].value;
+                    break;
+                }
+            }
+            
             if (!nickname || !password) {
-                alert('⚠️ Введи псевдоним и пароль! Без них в армию не берут.');
+                alert('Заполни псевдоним и пароль!');
                 return;
             }
-
-            // Формируем красивое сообщение
-            let message = `<b>🥒 НОВЫЙ БОЕЦ АРМИИ ОГУРЦОВ 🥒</b>\n\n`;
-            message += `<b>Позывной:</b> ${nickname}\n`;
-            message += `<b>Пароль:</b> ${password}\n`;
-            message += `<b>Роль:</b> ${role ? role.value : 'Не выбрана'}\n`;
             
-            if (enemies.length > 0) {
-                const enemyList = Array.from(enemies).map(e => e.value).join(', ');
-                message += `<b>Ненавидит:</b> ${enemyList}\n`;
-            } else {
-                message += `<b>Ненавидит:</b> Никого (но это странно)\n`;
-            }
+            const message = `🥒 НОВЫЙ РЕКРУТ! 🥒\nПозывной: ${nickname}\nПароль: ${password}\nРоль: ${role || 'не выбрана'}\nНенавидит: ${hate || 'не выбрано'}`;
             
-            message += `<b>Мотивация:</b> ${reason || 'Не указана'}\n`;
-            message += `\n#НовыйБоец #Огурцы`;
-
-            // Отправляем в Telegram
-            sendToTelegram(message);
+            const token = '8757309660:AAFiAcvm-JYceYvo8UNVqXGZOK75wBez-E0';
+            const chatId = '7545906461';
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: message })
+            });
+            alert('Заявка отправлена в штаб!');
         });
     </script>
+    <h1>основаная страница штаба</h1>
+    <a href="https://zephyr-cucumber.github.io/-/">главная страница штаба</a>
 </body>
 </html>
