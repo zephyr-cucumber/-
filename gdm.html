@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Congregation Soon Will Fall — Армия Огурцов</title>
+  <style>
+    /* ========== ОБЩИЕ СТИЛИ ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none; /* чтобы текст не выделялся при кликах */
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 30% 10%, #0a0f1e, #03060c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Poppins', 'Impact', system-ui, -apple-system, 'Inter', sans-serif;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* тёмная текстура поверх фона */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.08"><path fill="none" d="M0 0 L200 200 M200 0 L0 200" stroke="%2344ff66" stroke-width="0.5"/><circle cx="100" cy="100" r="30" stroke="%2366ff88" stroke-width="0.7" fill="none"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* главная карточка — стиль как у Geometry Dash / брутальный футуризм */
+    .war-container {
+      position: relative;
+      z-index: 10;
+      background: rgba(10, 20, 28, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 4rem;
+      border: 2px solid rgba(80, 255, 140, 0.5);
+      box-shadow: 0 0 30px rgba(0, 255, 100, 0.2), inset 0 0 20px rgba(0, 255, 100, 0.05);
+      padding: 2rem 2rem 2.8rem;
+      transition: all 0.2s ease;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    /* огурцовая кнопка — эпичный замес */
+    .cucumber-doom-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    .cucumber-btn {
+      background: linear-gradient(145deg, #1f3a1f, #0f2a0f);
+      border: none;
+      padding: 1.2rem 2.4rem;
+      border-radius: 100px;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c6ffb0;
+      text-shadow: 0 0 8px #00ff80, 0 0 2px #00cc66;
+      cursor: pointer;
+      transition: 0.1s linear;
+      box-shadow: 0 0 0 2px #5f9e4e, 0 8px 0 #1f3a1f, 0 12px 25px rgba(0,0,0,0.4);
+      font-family: inherit;
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(4px);
+    }
+
+    .cucumber-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 2px #5f9e4e, 0 4px 0 #1f3a1f;
+      transition: 0.05s linear;
+    }
+
+    /* плашка с пророчеством */
+    .fall-text {
+      text-align: center;
+      font-size: 2.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e0f2e0, #b0ffc0);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px #00aa44;
+      letter-spacing: 2px;
+      word-break: keep-all;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    /* анимация тряски и вспышки при показе сообщения */
+    @keyframes shakeWin {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-6px, 0) rotate(-1deg); }
+      40% { transform: translate(6px, 0) rotate(1deg); }
+      60% { transform: translate(-3px, 0) rotate(0deg); }
+      80% { transform: translate(2px, 0) rotate(0deg); }
+      100% { transform: translate(0, 0) rotate(0); }
+    }
+
+    @keyframes flashGreen {
+      0% { text-shadow: 0 0 0 #00ff44, color: #ffffff; background: none; }
+      30% { text-shadow: 0 0 25px #00ff88, 0 0 8px #00cc66; color: #eafff0; }
+      100% { text-shadow: 0 0 6px #00aa55; color: #b0ffc0; }
+    }
+
+    .fall-text.triggered {
+      animation: shakeWin 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) forwards, flashGreen 0.6s ease;
+      background: linear-gradient(145deg, #b8ffc8, #7fffaa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      transform-origin: center;
+    }
+
+    /* аудио подсказка и статсы */
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(80, 255, 120, 0.4);
+      font-size: 0.75rem;
+      color: #6f9e7c;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .attempt-counter {
+      background: #0f1f12;
+      padding: 0.3rem 0.8rem;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #b8ffc0;
+    }
+
+    /* элемент для красивого подвала */
+    .footer-gojda {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #5d8b62;
+      font-family: monospace;
+    }
+
+    /* мобильная адаптация */
+    @media (max-width: 550px) {
+      .war-container {
+        padding: 1.5rem;
+      }
+      .fall-text {
+        font-size: 1.5rem;
+      }
+      .cucumber-btn {
+        font-size: 1.4rem;
+        padding: 0.9rem 1.8rem;
+      }
+    }
+
+    /* маленькая звездная анимация после клика (псевдо эффект) */
+    .cucumber-btn:focus-visible {
+      outline: 2px solid #aaffcc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="war-container">
+  <div class="cucumber-doom-btn">
+    <!-- Кнопка, по нажатию которой будет звук и текст -->
+    <button class="cucumber-btn" id="doomButton">⚔️ НАЖМИ НА СУДЬБУ ⚔️</button>
+    
+    <!-- здесь будет динамическое пророчество -->
+    <div class="fall-text" id="prophecyText">CONGREGATION ДЕРЖИТСЯ</div>
+    
+    <div class="info-row">
+      <span>🍀 АРМИЯ ОГУРЦОВ</span>
+      <span class="attempt-counter" id="clickCounter">⚡ кликни ⚡</span>
+    </div>
+    <div class="footer-gojda">
+      🗡️🥒💚 • ГОЙДА • CONGREGATION SOON WILL FALL
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // --- ЭПИЧНЫЙ ЗВУК (синтезированный Web Audio, чтобы работало без внешних файлов, но с кайфом)
+    let audioCtx = null;
+    let soundAllowed = false;
+
+    // функция для проигрывания короткого мощного звука (как «прикольный звук» — микс удара и синтезатора)
+    function playPowerSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        // если контекст в suspended — пробуем активировать по клику (законный способ)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume().then(() => {
+            createAndPlaySound();
+          }).catch(e => console.log("audio resume error", e));
+        } else {
+          createAndPlaySound();
+        }
+      } catch(e) {
+        console.warn("Web Audio API не поддерживается, звук не проиграется, но это не беда", e);
+      }
+    }
+
+    function createAndPlaySound() {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      // звук "падения" с эпичным ударом (низкий + хайп)
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);       // нота A3
+      osc.frequency.exponentialRampToValueAtTime(82, now + 0.25); // спуск к низкой частоте (E2)
+      
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+      
+      osc.start();
+      osc.stop(now + 0.7);
+      
+      // дополнительный импульс ударного типа (щёлк / бас-бараба)
+      const bassOsc = audioCtx.createOscillator();
+      const bassGain = audioCtx.createGain();
+      bassOsc.connect(bassGain);
+      bassGain.connect(audioCtx.destination);
+      bassOsc.type = 'triangle';
+      bassOsc.frequency.setValueAtTime(80, now);
+      bassOsc.frequency.exponentialRampToValueAtTime(55, now + 0.2);
+      bassGain.gain.setValueAtTime(0.4, now);
+      bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      bassOsc.start();
+      bassOsc.stop(now + 0.3);
+      
+      // финальный короткий шум — «хруст огурца» для прикола (фильтр шума)
+      const noiseNode = (audioCtx.createScriptProcessor ? audioCtx.createScriptProcessor(256, 1, 1) : null);
+      if (noiseNode && audioCtx.createGain) {
+        // но для простоты и совместимости, лучше использовать BufferSource для шума
+        try {
+          const bufferSize = audioCtx.sampleRate * 0.15;
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() - 0.5) * 0.3;
+          }
+          const noise = audioCtx.createBufferSource();
+          noise.buffer = buffer;
+          const noiseGain = audioCtx.createGain();
+          noise.connect(noiseGain);
+          noiseGain.connect(audioCtx.destination);
+          noiseGain.gain.setValueAtTime(0.2, now + 0.1);
+          noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+          noise.start(now + 0.1);
+          noise.stop(now + 0.6);
+        } catch(e) {}
+      }
+    }
+
+    // === UI элементы ===
+    const button = document.getElementById('doomButton');
+    const prophecyDiv = document.getElementById('prophecyText');
+    const counterSpan = document.getElementById('clickCounter');
+    
+    let clickCount = 0;
+    // текст, который будет меняться при каждом нажатии но основное "Congregation скоро падет"
+    const mainMessage = "CONGREGATION СКОРО ПАДЕТ!";
+    const fallMessages = [
+      "⚡ CONGREGATION SOON WILL FALL ⚡",
+      "🍢 ПАДЕНИЕ БЛИЗКО! ПОМИДОРЫ ЗАСТЕНАЛИ",
+      "🥒 ОГУРЦЫ НАНОСЯТ УДАР!",
+      "🔥 96% — ЭТО ПРИГОВОР",
+      "ГОЙДА! CONGREGATION НЕ УСТОИТ"
+    ];
+    
+    // основной обработчик клика
+    function handleClick() {
+      // 1) прикольный звук
+      playPowerSound();
+      
+      // 2) меняем текст с эффектом
+      // убираем предыдущие классы, форсируем перерисовку
+      prophecyDiv.classList.remove('triggered');
+      void prophecyDiv.offsetWidth; // трюк для ретриггера анимации
+      
+      // обновляем текст на эпичный "Congregation скоро падет"
+      // но в твоем ТЗ: "написано Congregation скоро падет" — делаем вариации, но с главным смыслом.
+      let finalText = mainMessage;
+      // иногда можно выводить разные варианты, чтобы не надоедало (но суть одна)
+      if (clickCount % 3 === 1 && clickCount > 0) {
+        finalText = fallMessages[clickCount % fallMessages.length];
+      } else {
+        finalText = mainMessage;
+      }
+      
+      prophecyDiv.textContent = finalText;
+      prophecyDiv.classList.add('triggered');
+      
+      // счетчик нажатий (для интереса)
+      clickCount++;
+      counterSpan.innerHTML = `⚔️ УДАРОВ: ${clickCount} ⚔️`;
+      
+      // дополнительная фишка: микровибрация, если браузер поддерживает (можно добавить хайп)
+      if (navigator.vibrate) {
+        navigator.vibrate(40);
+      }
+      
+      // через 2 секунды сбросить текст в изначальное состояние (НО НЕ СРАЗУ, чтобы увидели победу)
+      // по твоему заданию — текст становится ПОСЛЕ КЛИКА нужный, и остаётся, но для динамичности я сделаю возврат через 3 секунды
+      // чтобы каждый новый клик давал тот же заряд.
+      // Однако, чтобы сохранить заявленное "при нажатии написано Congregation скоро падет", мы не убираем текст сразу,
+      // но для следующего клика он перезапишется — тоже круто. Однако лучше не возвращать в "CONGREGATION ДЕРЖИТСЯ"?
+      // Сделаю по желанию — вернём нейтральный вариант только спустя 3 секунды, либо можно оставить как есть
+      // но ты просил именно "при нажатие на кнопку будет написано Congregation скоро падет". Окей, сохраним его,
+      // а через 2.8 сек сделаем возврат в лёгкий нейтрал, чтобы повторный клик снова активировал текст падения.
+      if (window.timeoutReset) clearTimeout(window.timeoutReset);
+      window.timeoutReset = setTimeout(() => {
+        // меняем текст только если за это время не было другого клика (если будет другой клик — таймер обновится)
+        prophecyDiv.textContent = "CONGREGATION ЕЩЁ ДЫШИТ...";
+        prophecyDiv.classList.remove('triggered');
+        // не меняем счётчик, просто текст нейтральный
+      }, 2800);
+    }
+    
+    // инициализация звука при первом клике (законно, по требованию браузера)
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleClick();
+    });
+    
+    // для сброса текста при загрузке
+    prophecyDiv.textContent = "CONGREGATION ЕЩЁ ДЫШИТ...";
+    counterSpan.innerHTML = `⚔️ УДАРОВ: 0 ⚔️`;
+    
+    // Превентивный лог, если звук не будет работать — то хоть что-то 
+    console.log("Армия огурцов ГОЙДА! Жми на кнопку, Congregation падет");
+  })();
+</script>
+</body>
+</html>
