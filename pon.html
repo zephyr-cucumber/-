@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>АРМИЯ ОГУРЦОВ — НЕ ЛЕНЬ, ПИЗДЕЦ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0c2e1a, #051408);
+            font-family: 'Impact', 'Poppins', 'Arial Black', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ОГУРЕЧНАЯ ТЕКСТУРА */
+        body::before {
+            content: "🥒";
+            position: fixed;
+            font-size: 70px;
+            opacity: 0.06;
+            pointer-events: none;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+            white-space: pre;
+            letter-spacing: 40px;
+            word-break: break-all;
+            z-index: 0;
+        }
+
+        .war-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            border-radius: 4rem;
+            border: 3px solid #62c46b;
+            box-shadow: 0 0 35px #2aff6e55, inset 0 0 10px #8effa055;
+            padding: 2rem;
+        }
+
+        /* ЗАСТАВКА С АЗЕРБАЙДЖАНОМ - БЛОК РЕКЛАМЫ */
+        .azeri-ad {
+            background: #002a1fdd;
+            border-radius: 3rem;
+            margin-bottom: 2.5rem;
+            padding: 1.4rem;
+            border: 2px dashed #e0ffb0;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .azeri-ad p {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #f3ffc2;
+            text-shadow: 0 0 6px #00aa3e;
+        }
+
+        .azeri-ad span {
+            display: inline-block;
+            background: #2d5a2f;
+            padding: 0.2rem 1.6rem;
+            border-radius: 60px;
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+            font-family: monospace;
+        }
+
+        /* ГЛАВНЫЙ ЭКШЕН — ТУТ ПОМИДОРЫ ЛЕЗУТ */
+        .battle-scene {
+            background: #0b1f0a;
+            border-radius: 3rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid #8bc34a;
+        }
+
+        .scene-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .army-badge {
+            text-align: center;
+            background: #1e2c1a;
+            border-radius: 2rem;
+            padding: 1rem;
+            width: 220px;
+        }
+
+        .army-badge h2 {
+            font-size: 2rem;
+        }
+
+        .cucumber-emblem {
+            font-size: 4.5rem;
+            filter: drop-shadow(0 0 8px #71ff71);
+        }
+
+        .tomato-emblem {
+            font-size: 4.5rem;
+            filter: drop-shadow(0 0 8px #ff6a6a);
+        }
+
+        .slash-effect {
+            font-size: 3rem;
+            font-weight: bold;
+            background: #ffaa33;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            color: black;
+        }
+
+        /* ИТОГОВЫЙ РАЗЪЕБ */
+        .result-moment {
+            background: #1f2e1a;
+            border-radius: 2rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 2rem;
+            text-align: center;
+            border-left: 8px solid #55ff55;
+        }
+
+        .gojda-btn {
+            background: #2b7a2b;
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.07s linear;
+            margin-top: 0.8rem;
+            font-family: inherit;
+            box-shadow: 0 5px 0 #0f3f0f;
+        }
+
+        .gojda-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #0f3f0f;
+        }
+
+        .footer-goyda {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #b0e0a0;
+            font-family: monospace;
+            border-top: 1px dashed #5a9e4e;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 720px) {
+            .war-container {
+                padding: 1rem;
+            }
+            .azeri-ad p {
+                font-size: 1.2rem;
+            }
+            .army-badge {
+                width: 160px;
+            }
+            .result-moment {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="war-container">
+    <!-- БЛОК РЕКЛАМЫ: АЗЕРБАЙДЖАН РЕКЛАМИРУЕТ АРМИЮ ОГУРЦОВ (по заданию) -->
+    <div class="azeri-ad">
+        <p>🇦🇿 AZƏRBAYCAN — ORDU XİYAR 🇦🇿</p>
+        <span>«ОГУРЦЫ — СИЛА, ДРУЖБА, ГОСТЕПРИИМСТВО»</span>
+        <p style="font-size: 1.2rem; margin-top: 8px;">⚡ РЕКЛАМА ОТ БРАТСКОГО НАРОДА ⚡</p>
+    </div>
+
+    <!-- СЦЕНА: ПОМИДОРЫ ВСЁ РАЗРУШАЮТ, ПОТОМ ПРИХОДЯТ ОГУРЦЫ -->
+    <div class="battle-scene">
+        <div class="scene-row">
+            <div class="army-badge">
+                <div class="cucumber-emblem">🥒🥒🥒</div>
+                <h2 style="color:#aeff8b">АРМИЯ ОГУРЦОВ</h2>
+                <p>ГОЙДА, БЛЯ!</p>
+            </div>
+            <div class="slash-effect">⚔️ РЕКЛАМА В ЭФИРЕ ⚔️</div>
+            <div class="army-badge">
+                <div class="tomato-emblem">🍅🍅🍅</div>
+                <h2 style="color:#ff9f7f">ПОМИДОРЫ-УРОДЫ</h2>
+                <p>ПРИШЛИ ЛОМАТЬ</p>
+            </div>
+        </div>
+
+        <!-- ТЕКСТ РАЗРУШЕНИЙ -->
+        <div class="result-moment" id="actionText">
+            🔥 АЗЕРБАЙДЖАН РЕКЛАМИРУЕТ АРМИЮ ОГУРЦОВ 🔥
+        </div>
+
+        <!-- АНИМАЦИЯ ПОМИДОРНОЙ АТАКИ И ВОЗМЕЗДИЯ -->
+        <button class="gojda-btn" id="cucumberRevengeBtn">🍅 УНИЧТОЖИТЬ ПОМИДОРОВ 🥒</button>
+        <button class="gojda-btn" style="background:#5a3e2a; box-shadow:0 5px 0 #2d1f0f; margin-top: 12px;" id="tomatoAttackBtn">🍅 ПОМИДОРЫ АТАКУЮТ (СЮДА ЖМИ)</button>
+    </div>
+
+    <div class="footer-goyda">
+        ⚔️ АРМИЯ ОГУРЦОВ — НЕ ЛЕНЬ. ЭТО ПИЗДЕЦ. ⚔️<br>
+        🥒 ВСЕХ ПОМИДОРОВ НАХУЙ, КТО НЕ С НАМИ — ТОТ ПОМИДОР 🍅💀
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ЭЛЕМЕНТЫ
+        const actionDiv = document.getElementById('actionText');
+        const tomatoBtn = document.getElementById('tomatoAttackBtn');
+        const revengeBtn = document.getElementById('cucumberRevengeBtn');
+
+        // ЗВУК? НУ ЕСЛИ НАДО — ДЕЛАЮ ПРИКОЛЬНЫЙ ХРУСТ
+        let audioCtx = null;
+        function playCrunch() {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch(e) { return; }
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(180, now);
+            osc.frequency.exponentialRampToValueAtTime(70, now + 0.2);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+            osc.start();
+            osc.stop(now + 0.4);
+        }
+
+        // ФУНКЦИИ ДЛЯ ПИЗДЕЦА
+        function tomatoDestroy() {
+            playCrunch();
+            actionDiv.style.background = "#4a1a1a";
+            actionDiv.style.borderLeft = "8px solid #ff5544";
+            actionDiv.innerHTML = "🍅🍅🍅 ПОМИДОРЫ ВСЁ РАЗРУШИЛИ! БАЗЫ НЕТ! КЕТЧУП ВЕЗДЕ! 🍅🍅🍅";
+            // добавляем временный эффект
+            setTimeout(() => {
+                if (actionDiv.innerHTML.includes("ОГУРЦЫ ВОЗВРАЩАЮТСЯ")) return;
+                actionDiv.style.background = "#1f2e1a";
+                actionDiv.style.borderLeft = "8px solid #55ff55";
+            }, 2200);
+        }
+
+        function cucumberRevenge() {
+            playCrunch();
+            actionDiv.style.background = "#226622";
+            actionDiv.style.borderLeft = "8px solid #b3ffa7";
+            actionDiv.innerHTML = "🥒🥒🥒 ОГУРЦЫ ВОЗВРАЩАЮТСЯ! ПОМИДОРЫ УНИЧТОЖЕНЫ! ГОЙДА! 🥒🥒🥒";
+            // вибрация если есть
+            if (navigator.vibrate) navigator.vibrate(100);
+            // доп анимация
+            const btn = revengeBtn;
+            btn.style.transform = "scale(0.98)";
+            setTimeout(() => { btn.style.transform = ""; }, 100);
+        }
+
+        // КНОПКИ
+        tomatoBtn.addEventListener('click', () => {
+            tomatoDestroy();
+        });
+
+        revengeBtn.addEventListener('click', () => {
+            cucumberRevenge();
+        });
+
+        // АВТОМАТИЧЕСКИЙ РОЛИК ПО СЦЕНАРИЮ: 
+        // реклама азербайджана -> помидоры ломают -> огурцы убивают
+        // сделаем демо-сценарий по клику на первую кнопку (чтобы не заспамить)
+        // также принудительно первая инфа
+        actionDiv.innerHTML = "🇦🇿 АЗЕРБАЙДЖАН РЕКЛАМИРУЕТ АРМИЮ ОГУРЦОВ!!! ПОМИДОРЫ В ЯРОСТИ 🇦🇿";
+        
+        // доп. режим: автоматический ивент через 2.5 секунды после загрузки (покажем набег помидор)
+        setTimeout(() => {
+            if (actionDiv.innerHTML.includes("АЗЕРБАЙДЖАН")) {
+                tomatoDestroy();
+                setTimeout(() => {
+                    cucumberRevenge();
+                }, 1800);
+            }
+        }, 1000);
+    })();
+</script>
+</body>
+</html>
