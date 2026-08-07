@@ -8,3 +8,38 @@ body {
 p {
     font-size: 20px;
 }
+#goida {
+    text-align: center;
+}
+#nav {
+    list-style: none;
+    text-align: center;
+    display: block;
+    float:left;
+    margin-left: 25%;
+    
+    
+    
+}
+#nav li a {
+    color:white;
+    text-decoration: none;
+}
+
+#nav li {
+    display: inline;
+    border:3px;
+    background: darkblue;
+    border: 2px solid silver;
+    cursor:pointer;
+    color:white;
+    
+    
+}
+#nav li:hover {
+    color:white;
+    background: black ;
+}
+#nav li:not(:last-of-type) {
+    margin-right: 30px;
+}
