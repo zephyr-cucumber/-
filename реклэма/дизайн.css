@@ -11,35 +11,46 @@ p {
 #goida {
     text-align: center;
 }
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(106, 3, 111, 0.694);
+    padding: 12px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(147, 9, 182, 0.694);
+}
+#logo {
+    color:#fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    
+}
+#logo:hover {
+    color:fuchsia
+}
 #nav {
+    display: flex;
     list-style: none;
-    text-align: center;
-    display: block;
-    float:left;
-    margin-left: 25%;
-    
-    
+    gap:20px;
     
 }
 #nav li a {
-    color:white;
+    color:blue;
     text-decoration: none;
-}
+    font-size: 17px;
+    font-weight: 231px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: 0.3s;
 
-#nav li {
-    display: inline;
-    border:3px;
-    background: darkblue;
-    border: 2px solid silver;
-    cursor:pointer;
-    color:white;
-    
-    
+
 }
-#nav li:hover {
-    color:white;
-    background: black ;
-}
-#nav li:not(:last-of-type) {
-    margin-right: 30px;
+#nav li a:hover {
+    background: rgba(75, 9, 182, 0.694);
+    color:#fff;
+    box-shadow: 0 0 12px rgba(75,9,182,0.694);
+
 }
