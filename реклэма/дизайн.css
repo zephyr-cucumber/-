@@ -10,6 +10,7 @@ img {
     object-fit: cover;
     transition: 0.6s;
     transition-delay: 0.3s;
+    image-orientation: from-image;
 
    
 }
@@ -17,13 +18,21 @@ img:hover {
     filter: brightness(80%);
     
 }
+html {
+    scroll-behavior: smooth;
+    min-height: 100vh;
+}
 
 body {
     background-color: mediumpurple;
     
+    
 }
 p {
     font-size: 20px;
+    text-align:justify;
+    word-spacing:3px;
+    font-variant: small-caps;
 }
 #goida {
     text-align: center;
@@ -36,6 +45,9 @@ p {
     padding: 12px 40px;
     border-radius: 12px;
     box-shadow: 0 0 12px rgba(147, 9, 182, 0.694);
+    /*position: sticky;
+    top:0;*/ 
+    
 }
 #logo {
     color:#fff;
@@ -102,5 +114,6 @@ p {
     p {
         font-size: 16px;
         padding: 0 15px;
+        
     }
 }
